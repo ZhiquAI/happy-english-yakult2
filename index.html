@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>英语养乐多 2 (Happy English 2) - 一年级互动点读闯关</title>
+  <meta name="description" content="西安经开第一学校一年级英语点读互动教材，包含原声伴读、逐词点读、配图儿歌与整理书包闯关。">
+  <meta name="theme-color" content="#FF9800">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header Banner -->
+    <header class="header-banner">
+      <div class="header-top">
+        <div class="title-wrap">
+          <img src="app_assets/avatar_kids.jpg" alt="头像" class="title-avatar">
+          <div>
+            <div class="main-title">
+              英语养乐多 2
+              <span class="title-tag">Happy English 2</span>
+            </div>
+            <div class="sub-title">西安经开第一学校 · 一年级快乐英语点读闯关</div>
+          </div>
+        </div>
+
+        <!-- Student Profile Inputs & Download -->
+        <div style="display:flex; flex-direction:column; gap:8px; align-items:flex-end;">
+          <div class="profile-input-box" style="margin-bottom:0; padding:8px 14px; background:rgba(255,255,255,0.85);">
+            <div class="profile-field">
+              <span>班级:</span>
+              <input type="text" id="studentClassInput" placeholder="例如 1" oninput="updateStudentProfile()" style="width:50px;">
+              <span>班</span>
+            </div>
+            <div class="profile-field">
+              <span>英文名:</span>
+              <input type="text" id="studentNameInput" placeholder="例如 Mike" oninput="updateStudentProfile()" style="width:90px;">
+            </div>
+          </div>
+          <a href="英语养乐多2.pdf" target="_blank" style="font-size:0.78rem; color:#795548; text-decoration:none; display:inline-flex; align-items:center; gap:4px; font-weight:600; background:rgba(255,255,255,0.6); padding:3px 10px; border-radius:12px;">
+            📄 下载原版 PDF (可打印)
+          </a>
+        </div>
+      </div>
+
+      <!-- Tab Switcher -->
+      <nav class="tab-nav">
+        <button class="tab-btn active" data-tab="tab1">
+          <span>📖 第一页：综合闯关 (Phonics & Say)</span>
+        </button>
+        <button class="tab-btn" data-tab="tab2">
+          <span>🎒 第二页：整理书包口语秀 (Pack Schoolbag)</span>
+        </button>
+      </nav>
+    </header>
+
+    <!-- TAB 1: 页面一综合闯关 -->
+    <main id="tab1" class="tab-pane">
+      <!-- 老师指读准备语音条 -->
+      <section class="greeting-card">
+        <div class="greeting-info">
+          <h4>🔔 课前指读准备提示 (老师原声)</h4>
+          <p>“亲爱的宝贝们，大家好。请跟老师一起读。头正、肩平、身直、足安，左手压书，右手指读。”</p>
+        </div>
+        <button class="play-greeting-btn" onclick="playItemAudio('greeting', '指读准备提示', 'app_assets/audio_clips/intro_teacher.mp3')">
+          <span>▶</span> 听老师引导
+        </button>
+      </section>
+
+      <!-- I. Magic phonics -->
+      <section class="section-block">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="section-icon">🔤</span>
+            <span>I. Magic phonics. 认读语音单词</span>
+          </div>
+          <span class="section-tag">会说会读 · 点击发音</span>
+        </div>
+        <div class="phonics-grid" id="phonicsGrid">
+          <!-- 动态渲染 6 个自然拼读卡片 -->
+        </div>
+      </section>
+
+      <!-- II. I can read -->
+      <section class="section-block">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="section-icon">⭐</span>
+            <span>II. I can read. 单词闯关</span>
+          </div>
+          <span class="section-tag">读词知意 · 15词全覆盖</span>
+        </div>
+        <div id="wordsContainer">
+          <!-- 动态渲染文具、动作、数字3大类单词卡片 -->
+        </div>
+      </section>
+
+      <!-- III. I can say -->
+      <section class="section-block">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="section-icon">🗣️</span>
+            <span>III. I can say. 口语闯关</span>
+          </div>
+          <span class="section-tag">会说会演 · 点句跟读</span>
+        </div>
+        <div class="dialogue-list" id="dialogueContainer">
+          <!-- 动态渲染口语对话、指令、趣味数字儿歌 -->
+        </div>
+      </section>
+
+      <!-- Evaluation & Teacher Words -->
+      <section class="section-block">
+        <div class="eval-card">
+          <div class="eval-title">
+            <span>🏆</span>
+            <span>Evaluation criteria 自我评价标准</span>
+          </div>
+          
+          <div class="eval-row" id="evalRow1">
+            <div class="eval-label">1. 认读准确，没有发音错误和表达错误。</div>
+            <div class="eval-stars">
+              <button class="yakult-star-btn" onclick="rateYakult(1, 0)" title="1瓶养乐多"><img src="app_assets/yakult_star.jpg" alt="星"></button>
+              <button class="yakult-star-btn" onclick="rateYakult(1, 1)" title="2瓶养乐多"><img src="app_assets/yakult_star.jpg" alt="星"></button>
+              <button class="yakult-star-btn" onclick="rateYakult(1, 2)" title="3瓶养乐多"><img src="app_assets/yakult_star.jpg" alt="星"></button>
+            </div>
+          </div>
+
+          <div class="eval-row" id="evalRow2">
+            <div class="eval-label">2. 语言流畅，发音清晰，声音洪亮。</div>
+            <div class="eval-stars">
+              <button class="yakult-star-btn" onclick="rateYakult(2, 0)" title="1瓶养乐多"><img src="app_assets/yakult_star.jpg" alt="星"></button>
+              <button class="yakult-star-btn" onclick="rateYakult(2, 1)" title="2瓶养乐多"><img src="app_assets/yakult_star.jpg" alt="星"></button>
+              <button class="yakult-star-btn" onclick="rateYakult(2, 2)" title="3瓶养乐多"><img src="app_assets/yakult_star.jpg" alt="星"></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Teacher encouragement -->
+        <div class="greeting-card" style="margin-top:20px; border-left-color:#4CAF50; background:#F1F8E9;">
+          <div class="greeting-info">
+            <h4 style="color:#2E7D32;">💖 老师寄语：给坚持的宝贝们点赞</h4>
+            <p>“孩子们，坚持本身就是一件非常酷的事。期待所有的宝贝们在养乐多2大闯关中，人人都能收获满心荣耀。冲呀，孩儿们！”</p>
+          </div>
+          <button class="play-greeting-btn" style="background:#4CAF50;" onclick="playItemAudio('teacher_encouragement', '老师寄语', 'app_assets/audio_clips/teacher_encouragement.mp3')">
+            <span>▶</span> 听老师寄语
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- TAB 2: 第二页整理书包口语展示秀 -->
+    <main id="tab2" class="tab-pane" style="display:none;">
+      <!-- Hero Image -->
+      <section class="p2-hero-wrap">
+        <img src="app_assets/p2_pack_schoolbag.jpg" alt="Pack my schoolbag" class="p2-hero-img">
+      </section>
+
+      <!-- 口语展示句式 -->
+      <section class="section-block">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="section-icon">🎤</span>
+            <span>Pack your schoolbag and say. 口语展示</span>
+          </div>
+          <span class="section-tag">点击句子听发音</span>
+        </div>
+
+        <div id="p2Presentation" class="dialogue-list">
+          <!-- 动态渲染第二页各句 -->
+        </div>
+
+        <!-- 互动文具打包小游戏 -->
+        <div class="game-area">
+          <div class="game-title">🎮 互动小游戏：点击文具，装进书包！</div>
+          <p style="font-size:0.85rem; color:#666; margin-bottom:12px;">点击下方文具，听英文发音并将文具装入书包：</p>
+          
+          <div class="game-items-row" id="gameItemsRow">
+            <!-- 动态渲染文具道具 -->
+          </div>
+
+          <button onclick="resetPackingGame()" style="margin-top:14px; background:#FFF; border:1px solid #FFA000; color:#E65100; padding:6px 16px; border-radius:20px; font-weight:700; cursor:pointer;">
+            🔄 重新倒出打包
+          </button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Floating Audio Player Bar -->
+  <footer class="audio-bar">
+    <div class="audio-bar-inner">
+      <div class="audio-now-playing">
+        <div class="play-state-pulse" id="playPulse"></div>
+        <div class="playing-title" id="playingTitle">点选任意卡片听老师发音</div>
+      </div>
+
+      <div class="audio-controls">
+        <button class="ctrl-btn" id="speedBtn" title="切换语速">1.0x 正常</button>
+        <button class="ctrl-btn" id="toggleCnBtn" title="切换中文翻译显隐">中英对照</button>
+        <button class="ctrl-btn" id="continuousBtn" title="自动连续伴读">
+          <span>🎧</span> 连续伴读
+        </button>
+        <button class="main-play-btn" id="mainPlayBtn" title="播放/暂停">▶</button>
+      </div>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
