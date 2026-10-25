@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderPage2();
   initAudioControls();
   initTabs();
+  initTouchGestures();
   buildContinuousList();
   loadSavedProfile();
 });
@@ -83,18 +84,56 @@ function buildContinuousList() {
 // 标签页切换
 function initTabs() {
   const tabBtns = document.querySelectorAll(".tab-btn");
-  const tabPanes = document.querySelectorAll(".tab-pane");
 
   tabBtns.forEach(btn => {
     btn.addEventListener("click", () => {
-      tabBtns.forEach(b => b.classList.remove("active"));
-      tabPanes.forEach(p => p.style.display = "none");
-
-      btn.classList.add("active");
       const targetId = btn.getAttribute("data-tab");
-      document.getElementById(targetId).style.display = "block";
+      switchTab(targetId);
     });
   });
+}
+
+function switchTab(targetId) {
+  const tabBtns = document.querySelectorAll(".tab-btn");
+  const tabPanes = document.querySelectorAll(".tab-pane");
+
+  tabBtns.forEach(b => {
+    b.classList.toggle("active", b.getAttribute("data-tab") === targetId);
+  });
+  tabPanes.forEach(p => {
+    p.style.display = p.id === targetId ? "block" : "none";
+  });
+}
+
+// iPad & 移动端左右手势滑动手势切页
+function initTouchGestures() {
+  let startX = 0;
+  let startY = 0;
+
+  document.addEventListener("touchstart", (e) => {
+    if (e.touches.length === 1) {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+    }
+  }, { passive: true });
+
+  document.addEventListener("touchend", (e) => {
+    if (e.changedTouches.length === 1) {
+      const diffX = e.changedTouches[0].clientX - startX;
+      const diffY = e.changedTouches[0].clientY - startY;
+
+      // 水平滑动大于 80px 且垂直偏移较小时触发（防止正常上下滑动滚动被截断）
+      if (Math.abs(diffX) > 80 && Math.abs(diffY) < 55) {
+        if (diffX < 0) {
+          switchTab("tab2");
+          showToast("👉 翻至第二页：整理书包口语秀");
+        } else {
+          switchTab("tab1");
+          showToast("👈 翻至第一页：综合闯关");
+        }
+      }
+    }
+  }, { passive: true });
 }
 
 // 渲染第一页

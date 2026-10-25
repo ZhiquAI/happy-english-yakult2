@@ -2,10 +2,18 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>英语养乐多 2 (Happy English 2) - 一年级互动点读闯关</title>
   <meta name="description" content="西安经开第一学校一年级英语点读互动教材，包含原声伴读、逐词点读、配图儿歌与整理书包闯关。">
   <meta name="theme-color" content="#FF9800">
+
+  <!-- iPad / iOS 沉浸式 Web App 增强配置 -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="英语养乐多2">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="apple-touch-icon" href="app_assets/avatar_kids.jpg">
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -152,39 +160,44 @@
 
     <!-- TAB 2: 第二页整理书包口语展示秀 -->
     <main id="tab2" class="tab-pane" style="display:none;">
-      <!-- Hero Image -->
-      <section class="p2-hero-wrap">
-        <img src="app_assets/p2_pack_schoolbag.jpg" alt="Pack my schoolbag" class="p2-hero-img">
-      </section>
+      <div class="p2-split-container">
+        <!-- Hero Image Column -->
+        <section class="p2-hero-wrap">
+          <img src="app_assets/p2_pack_schoolbag.jpg" alt="Pack my schoolbag" class="p2-hero-img">
+        </section>
 
-      <!-- 口语展示句式 -->
-      <section class="section-block">
-        <div class="section-header">
-          <div class="section-title">
-            <span class="section-icon">🎤</span>
-            <span>Pack your schoolbag and say. 口语展示</span>
-          </div>
-          <span class="section-tag">点击句子听发音</span>
+        <!-- Content Column -->
+        <div class="p2-content-col">
+          <!-- 口语展示句式 -->
+          <section class="section-block">
+            <div class="section-header">
+              <div class="section-title">
+                <span class="section-icon">🎤</span>
+                <span>Pack your schoolbag and say. 口语展示</span>
+              </div>
+              <span class="section-tag">点击句子听发音</span>
+            </div>
+
+            <div id="p2Presentation" class="dialogue-list">
+              <!-- 动态渲染第二页各句 -->
+            </div>
+
+            <!-- 互动文具打包小游戏 -->
+            <div class="game-area">
+              <div class="game-title">🎮 互动小游戏：点击文具，装进书包！</div>
+              <p style="font-size:0.85rem; color:#666; margin-bottom:12px;">点击下方文具，听英文发音并将文具装入书包：</p>
+              
+              <div class="game-items-row" id="gameItemsRow">
+                <!-- 动态渲染文具道具 -->
+              </div>
+
+              <button onclick="resetPackingGame()" style="margin-top:14px; background:#FFF; border:1px solid #FFA000; color:#E65100; padding:6px 16px; border-radius:20px; font-weight:700; cursor:pointer;">
+                🔄 重新倒出打包
+              </button>
+            </div>
+          </section>
         </div>
-
-        <div id="p2Presentation" class="dialogue-list">
-          <!-- 动态渲染第二页各句 -->
-        </div>
-
-        <!-- 互动文具打包小游戏 -->
-        <div class="game-area">
-          <div class="game-title">🎮 互动小游戏：点击文具，装进书包！</div>
-          <p style="font-size:0.85rem; color:#666; margin-bottom:12px;">点击下方文具，听英文发音并将文具装入书包：</p>
-          
-          <div class="game-items-row" id="gameItemsRow">
-            <!-- 动态渲染文具道具 -->
-          </div>
-
-          <button onclick="resetPackingGame()" style="margin-top:14px; background:#FFF; border:1px solid #FFA000; color:#E65100; padding:6px 16px; border-radius:20px; font-weight:700; cursor:pointer;">
-            🔄 重新倒出打包
-          </button>
-        </div>
-      </section>
+      </div>
     </main>
   </div>
 

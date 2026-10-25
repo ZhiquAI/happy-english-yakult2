@@ -24,6 +24,7 @@
   margin: 0;
   padding: 0;
   -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 body {
@@ -33,7 +34,7 @@ body {
   background-size: 24px 24px;
   color: var(--text-main);
   line-height: 1.5;
-  padding-bottom: 120px;
+  padding-bottom: calc(110px + env(safe-area-inset-bottom, 0px));
 }
 
 .container {
@@ -799,7 +800,7 @@ body {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-top: 2px solid #FFE0B2;
-  padding: 10px 16px;
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
   z-index: 1000;
 }
@@ -939,3 +940,257 @@ body {
   transform: translateX(-50%) translateY(0);
   opacity: 1;
 }
+
+/* =========================================
+   iPad & 平板设备专属高清晰交互优化
+   ========================================= */
+
+/* 触控防误触与触控防缩放反馈 */
+.phonics-card,
+.word-card,
+.say-speech-bubble,
+.chip-btn,
+.rhyme-card,
+.tab-btn,
+.ctrl-btn,
+.main-play-btn,
+.game-item-card,
+.yakult-star-btn,
+.play-greeting-btn {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.phonics-card:active,
+.word-card:active,
+.say-speech-bubble:active,
+.rhyme-card:active,
+.game-item-card:active {
+  transform: scale(0.96) !important;
+  transition: transform 0.1s ease;
+}
+
+/* 1. iPad 竖屏与中大平板 (768px ~ 1023px) */
+@media (min-width: 768px) {
+  .container {
+    max-width: 960px;
+    padding: 24px;
+  }
+
+  .header-banner {
+    padding: 24px 28px;
+  }
+
+  .main-title {
+    font-size: 2rem;
+  }
+
+  .title-avatar {
+    width: 66px;
+    height: 66px;
+  }
+
+  .sub-title {
+    font-size: 1.05rem;
+  }
+
+  /* 自然拼读 6 卡在 iPad 上一整行优雅排开 */
+  .phonics-grid {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+  }
+
+  .card-img-wrap {
+    width: 86px;
+    height: 86px;
+  }
+
+  .phonics-letters {
+    font-size: 1.25rem;
+  }
+
+  .phonics-word {
+    font-size: 1.1rem;
+  }
+
+  /* 单词卡片 5 列规整网格，字画更加舒展 */
+  .words-grid {
+    grid-template-columns: repeat(5, 1fr) !important;
+    gap: 14px;
+  }
+
+  .word-card {
+    padding: 14px 8px;
+  }
+
+  .word-img-wrap {
+    width: 74px;
+    height: 74px;
+  }
+
+  .word-en {
+    font-size: 1.12rem;
+  }
+
+  .word-cn {
+    font-size: 0.86rem;
+  }
+
+  /* 口语对话条触控热区放大，符合平板适中视距 */
+  .say-speech-bubble {
+    padding: 14px 18px;
+    min-height: 56px;
+  }
+
+  .say-en {
+    font-size: 1.15rem;
+  }
+
+  .say-cn {
+    font-size: 0.92rem;
+  }
+
+  .say-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  /* 数字儿歌 3 列 2 行整齐平铺 */
+  .rhymes-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  .rhyme-en {
+    font-size: 1.08rem;
+  }
+
+  .rhyme-thumb {
+    width: 60px;
+    height: 60px;
+  }
+
+  .rhyme-num-badge {
+    width: 42px;
+    height: 42px;
+    font-size: 1.3rem;
+  }
+
+  /* 底部播放条平板适配 */
+  .audio-bar {
+    padding: 12px 24px calc(14px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .playing-title {
+    max-width: 420px;
+    font-size: 1.05rem;
+  }
+
+  .ctrl-btn {
+    padding: 8px 16px;
+    font-size: 0.92rem;
+    height: 40px;
+  }
+
+  .main-play-btn {
+    width: 48px;
+    height: 48px;
+    font-size: 1.3rem;
+  }
+}
+
+/* 2. iPad 横屏与 iPad Pro (>= 1024px) */
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1140px;
+    padding: 28px 36px;
+  }
+
+  .header-banner {
+    padding: 28px 36px;
+  }
+
+  .main-title {
+    font-size: 2.2rem;
+  }
+
+  .title-avatar {
+    width: 74px;
+    height: 74px;
+  }
+
+  .phonics-grid {
+    gap: 18px;
+  }
+
+  .card-img-wrap {
+    width: 98px;
+    height: 98px;
+  }
+
+  .phonics-letters {
+    font-size: 1.35rem;
+  }
+
+  .phonics-word {
+    font-size: 1.2rem;
+  }
+
+  .words-grid {
+    gap: 18px;
+  }
+
+  .word-card {
+    padding: 16px 12px;
+  }
+
+  .word-img-wrap {
+    width: 84px;
+    height: 84px;
+  }
+
+  .word-en {
+    font-size: 1.2rem;
+  }
+
+  .word-cn {
+    font-size: 0.92rem;
+  }
+
+  .say-speech-bubble {
+    padding: 16px 22px;
+  }
+
+  .say-en {
+    font-size: 1.22rem;
+  }
+
+  .say-cn {
+    font-size: 0.96rem;
+  }
+
+  .say-icon {
+    width: 54px;
+    height: 54px;
+  }
+
+  /* 第二页：横屏 iPad 呈现双栏立体绘本排版（左大图置顶，右点读互动） */
+  .p2-split-container {
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    gap: 28px;
+    align-items: start;
+  }
+
+  .p2-hero-wrap {
+    position: sticky;
+    top: 24px;
+    margin-bottom: 0;
+  }
+
+  .p2-hero-img {
+    max-height: 580px;
+  }
+}
+
